@@ -1,5 +1,5 @@
 import { dbContext } from '../db/DbContext'
-import { BadRequest } from '../utils/Errors'
+import { BadRequest } from './Errors'
 
 class ValuesService {
   async find(query = {}) {
