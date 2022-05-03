@@ -8,7 +8,7 @@ module.exports = {
   env: {
     node: true
   },
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   extends: [
     'standard'
   ],

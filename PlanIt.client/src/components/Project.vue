@@ -1,11 +1,13 @@
 <template>
-  <div class="component">
+  <div class="row justify-content-center">
     <div class="col-md-6">
       <h2>
-        {{project.name}}
-        </h2>
+        {{ project.name }}
+      </h2>
+      <h5>
+        {{ project.description }}
+      </h5>
     </div>
-  
   </div>
 </template>
 
@@ -19,7 +21,7 @@ export default {
       required: true
     }
   },
-  setup(){
+  setup() {
     return {}
   }
 }
@@ -27,5 +29,4 @@ export default {
 
 
 <style lang="scss" scoped>
-
 </style>
