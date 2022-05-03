@@ -7,6 +7,7 @@ export const TaskSchema = new Schema({
   projectId: {type: Schema.Types.ObjectId, required: true, ref: 'Project'},
   sprintId: {type: Schema.Types.ObjectId, required: true, ref: 'Sprint'},
   creatorId: {type: Schema.Types.ObjectId, required: true, ref: 'Account'},
+  //NOTE isCompleted DIFFERS FROM THE NAMING CONVENTION  OF THE README
   isCompleted: {type: Boolean, default: false}
 },
 { timestamps: true, toJSON: { virtuals: true } })
