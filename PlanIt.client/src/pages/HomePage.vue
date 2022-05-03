@@ -10,17 +10,27 @@
     "
   >
     <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      />
-      <ProjectForm />
+      <button
+        class="btn btn-outline-success"
+        type="button"
+        @click="openModal()"
+      >
+        Create Project
+      </button>
+      <!-- <ProjectForm /> -->
       <div v-if="projects" class="container">
         <Project v-for="p in projects" :key="p.id" :project="p" />
       </div>
     </div>
   </div>
+  <Modal id="createProjectModal">
+    <template #title>
+      <h3>Create Project</h3>
+    </template>
+    <template #body>
+      <ProjectForm />
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -29,6 +39,7 @@ import { AppState } from '../AppState.js'
 import { onMounted } from '@vue/runtime-core'
 import Pop from '../utils/Pop.js'
 import { projectsService } from '../services/ProjectsService.js'
+import { Modal } from 'bootstrap'
 export default {
   name: 'Home',
   setup() {
@@ -42,7 +53,10 @@ export default {
       }
     })
     return {
-      projects: computed(() => AppState.projects)
+      projects: computed(() => AppState.projects),
+      openModal() {
+        Modal.getOrCreateInstance(document.getElementById('createProjectModal')).toggle()
+      }
     }
   }
 }
