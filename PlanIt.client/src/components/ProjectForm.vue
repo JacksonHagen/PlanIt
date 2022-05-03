@@ -1,0 +1,49 @@
+<template>
+  <div class="container">
+    <form @submit.prevent="create">
+       <div class="mb-3">
+        <label for="name" class="form-label"></label>
+        <input type="text"
+          class="form-control" name="name" id="name" aria-describedby="helpId" placeholder="Name..." v-model="editable.name">
+        <small id="helpId" class="form-text text-muted"></small>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label"></label>
+        <input type="text"
+          class="form-control" name="description" id="description" aria-describedby="helpId" placeholder="Description..." v-model="editable.description">
+        <small id="helpId" class="form-text text-muted"></small>
+      </div>
+      <button class="btn btn-info" type="submit">Submit</button>
+    </form>
+
+  </div>
+</template>
+
+
+<script>
+import { ref } from '@vue/reactivity'
+import Pop from '../utils/Pop.js'
+import { projectsService } from '../services/ProjectsService.js'
+export default {
+  setup(){
+    const editable = ref({})
+    return {
+      editable,
+      async create(){
+        try {
+          await projectsService.createProject(editable.value)
+        }
+        catch(error) {
+          console.error("[error prefix]", error.message);
+          Pop.toast(error.message, "error");
+        }
+      }
+    }
+  }
+}
+</script>
+
+
+<style lang="scss" scoped>
+
+</style>
