@@ -18,6 +18,12 @@
 
 <script>
 export default {
+  props: {
+    sprint: {
+      type: Object,
+      required: true
+    },
+  },
   setup() {
     return {};
   },

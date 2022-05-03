@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <div @click="openModal()" class="btn">fasdfad</div>
-      <Sprint v-for="s in sprints" :key="s.id" :sprint="s" />
+      <Sprint v-for="s in activeSprints" :key="s.id" :sprint="s" />
     </div>
   </div>
   <Modal id="createSprintModal">
@@ -29,15 +29,15 @@ export default {
   setup() {
     const route = useRoute();
     onMounted(async () => {
-      projectsService.setActiveProject(route.params.projectId);
       try {
+        await projectsService.setActiveProject(route.params.projectId);
         await sprintsService.getAllSprints(AppState.activeProject);
       } catch (error) {
         Pop.toast("no sprints loser!");
       }
     });
     return {
-      sprint: computed(() => AppState.sprints),
+      activeSprints: computed(() => AppState.activeSprints),
       openModal() {
         document.getElementById("sprintForm").reset();
         Modal.getOrCreateInstance(
