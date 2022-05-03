@@ -32,33 +32,31 @@
   </div>
 </template>
 
-
 <script>
-import { ref } from '@vue/reactivity'
-import Pop from '../utils/Pop.js'
-import { projectsService } from '../services/ProjectsService.js'
-import { Modal } from 'bootstrap'
+import { ref } from "@vue/reactivity";
+import Pop from "../utils/Pop.js";
+import { projectsService } from "../services/ProjectsService.js";
+import { Modal } from "bootstrap";
 export default {
   setup() {
-    const editable = ref({})
+    const editable = ref({});
     return {
       editable,
       async create() {
         try {
-          await projectsService.createProject(editable.value)
-          document.getElementById('projectForm').reset()
-          Modal.getOrCreateInstance(document.getElementById('createProjectModal')).toggle()
-        }
-        catch (error) {
+          await projectsService.createProject(editable.value);
+          document.getElementById("projectForm").reset();
+          Modal.getOrCreateInstance(
+            document.getElementById("createProjectModal")
+          ).toggle();
+        } catch (error) {
           console.error("[error prefix]", error.message);
           Pop.toast(error.message, "error");
         }
-      }
-    }
-  }
-}
+      },
+    };
+  },
+};
 </script>
 
-
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
