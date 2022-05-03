@@ -14,6 +14,12 @@ class ProjectsService {
     logger.log(res.data)
     AppState.projects.unshift(new Project(res.data))
   }
+  async deleteProject(id) {
+    debugger
+    const index = AppState.projects.findIndex(p => p.id == id)
+    await api.delete('api/projects/' + id)
+    AppState.projects.splice(index, 1)
+  }
 }
 
 

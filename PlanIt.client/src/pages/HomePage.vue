@@ -1,15 +1,13 @@
 <template>
-  <div
-    class="
-      home
-      flex-grow-1
-      d-flex
-      flex-column
-      align-items-center
-      justify-content-center
-    "
-  >
-    <div class="home-card p-5 bg-white rounded elevation-3">
+  <div class="container-fluid card">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div v-if="projects" class="">
+          <Project v-for="p in projects" :key="p.id" :project="p" />
+        </div>
+      </div>
+    </div>
+    <div class="">
       <button
         class="btn btn-outline-success"
         type="button"
@@ -18,9 +16,6 @@
         Create Project
       </button>
       <!-- <ProjectForm /> -->
-      <div v-if="projects" class="container">
-        <Project v-for="p in projects" :key="p.id" :project="p" />
-      </div>
     </div>
   </div>
   <Modal id="createProjectModal">
@@ -55,6 +50,7 @@ export default {
     return {
       projects: computed(() => AppState.projects),
       openModal() {
+        document.getElementById('projectForm').reset()
         Modal.getOrCreateInstance(document.getElementById('createProjectModal')).toggle()
       }
     }

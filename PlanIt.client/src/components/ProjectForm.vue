@@ -11,6 +11,7 @@
           aria-describedby="helpId"
           placeholder="Name..."
           v-model="editable.name"
+          required
         />
       </div>
       <div class="mb-3">
@@ -23,6 +24,7 @@
           aria-describedby="helpId"
           placeholder="Description..."
           v-model="editable.description"
+          required
         />
       </div>
       <button class="btn btn-info w-50 mt-3" type="submit">Submit</button>
