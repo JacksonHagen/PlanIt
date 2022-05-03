@@ -11,24 +11,30 @@ class TasksService {
     await task.populate('creator')
     return task
   }
-  async editTask(newTask) {
-    const task = await dbContext.Tasks.findById(newTask.params.id)
+  async editTask(newTask, userId) {
+    const task = await dbContext.Tasks.findById(newTask.id)
     if(!task) {
       throw new BadRequest('Could not find task')
     }
-    if(task.creatorId.toString() !== newTask.userInfo.id.toString()) {
+    if(task.creatorId.toString() !== userId.toString()) {
       throw new BadRequest('You cannot edit tasks you did not create')
     }
-    // task.body.sprintId = newTask.body.sprintId || task.body.sprintId
-    task.body.name = newTask.body.name || task.body.name
-    task.body.weight = newTask.body.weight || task.body.weight
-    task.body.isComplete = newTask.body.isComplete || task.body.isComplete
-    task.body.sprintId = newTask.body.sprintId || task.body.sprintId
+    task.name = newTask.name || task.name
+    task.weight = newTask.weight || task.weight
+    task.isComplete = newTask.isComplete || task.isComplete
+    task.sprintId = newTask.sprintId || task.sprintId
     await task.save()
     return task
   }
   async deleteTask(taskId, userId) {
-
+    const targetTask = await dbContext.Tasks.findById(taskId)
+    if(!targetTask) {
+      throw new BadRequest('Could not find task')
+    }
+    if(targetTask.creatorId.toString() !== userId.toString()) {
+      throw new BadRequest('You cannot edit tasks you did not create')
+    }
+    await targetTask.remove()
   }
 
 }
