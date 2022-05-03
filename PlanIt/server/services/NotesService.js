@@ -18,7 +18,7 @@ class NotesService {
     return note
   }
   async getNotes(projectId) {
-    return await dbContext.Notes.find({ projectId: projectId}).populate('creator')
+    return await dbContext.Notes.find({ projectId}).populate('creator')
   }
 
 

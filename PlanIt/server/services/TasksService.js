@@ -2,8 +2,8 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest } from "../utils/Errors.js"
 
 class TasksService {
-  async getTasks(id) {
-    const tasks = await dbContext.Tasks.find({ projectId: id }).populate('creator')
+  async getTasks(projectId) {
+    const tasks = await dbContext.Tasks.find({ projectId }).populate('creator')
     return tasks
   }
   async createTask(body) {
@@ -21,7 +21,7 @@ class TasksService {
     }
     task.name = newTask.name || task.name
     task.weight = newTask.weight || task.weight
-    task.isComplete = newTask.isComplete || task.isComplete
+    task.isCompleted = newTask.isCompleted || task.isCompleted
     task.sprintId = newTask.sprintId || task.sprintId
     await task.save()
     return task

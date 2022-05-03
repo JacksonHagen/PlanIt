@@ -21,10 +21,8 @@ class ProjectsService {
     await project.populate('creator', 'picture name')
     return project
   }
-  async getUsersProjects(userId) {
-    const res = await dbContext.Projects.find({}).populate('creator', 'picture name')
-    return res.filter(p => p.creatorId.toString() === userId.toString())
-
+  async getUsersProjects(creatorId) {
+    return await dbContext.Projects.find({creatorId}).populate('creator', 'picture name')
   }
 
 }

@@ -3,8 +3,7 @@ import { BadRequest } from "../utils/Errors.js"
 
 class SprintsService {
   async getSprintsForProject(projectId) {
-    const sprints = await dbContext.Sprints.find({}).populate('creator', 'name')
-    return sprints.filter(s => s.projectId.toString() === projectId.toString())
+    return await dbContext.Sprints.find({projectId}).populate('creator', 'name')
   }
   async createSprint(body) {
     const sprint = await dbContext.Sprints.create(body)
