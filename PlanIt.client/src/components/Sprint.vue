@@ -6,7 +6,6 @@
       </h2>
     </div>
     <div class="col-2 text-end">
-      <button></button>
       <i
         class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
         @click="removeProject"

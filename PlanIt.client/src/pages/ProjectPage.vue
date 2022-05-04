@@ -1,8 +1,10 @@
 <template>
-  <div class="row">
-    <div class="col-12">
-      <div @click="openModal()" class="btn">fasdfad</div>
-      <Sprint v-for="s in activeSprints" :key="s.id" :sprint="s" />
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div @click="openModal()" class="btn">Create Sprint</div>
+        <Sprint v-for="s in activeSprints" :key="s.id" :sprint="s" />
+      </div>
     </div>
   </div>
   <Modal id="createSprintModal">
@@ -30,8 +32,8 @@ export default {
     const route = useRoute();
     onMounted(async () => {
       try {
-        await projectsService.setActiveProject(route.params.projectId);
-        await sprintsService.getAllSprints(AppState.activeProject);
+        await sprintsService.getAllActiveSprints(route.params.projectId);
+
       } catch (error) {
         Pop.toast("no sprints loser!");
       }
