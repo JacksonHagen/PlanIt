@@ -15,6 +15,13 @@ class SprintsService {
   console.log(AppState.activeSprints);
  }
 
+ async removeSprint(sprint) {
+  const index = AppState.activeSprints.findIndex(s=> s.if == sprint.id)
+  const res = await api.delete('api/projects/' + AppState.activeProject.id + '/sprints/' + sprint.id)
+  AppState.activeSprints.splice(index, 1)
+
+ }
+
 } 
 
 export const sprintsService = new SprintsService()
