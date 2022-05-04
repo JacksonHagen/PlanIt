@@ -11,7 +11,6 @@ class ProjectsService {
   }
 
   async setActiveProject(id) {
-  
   AppState.activeProject = AppState.projects.find(p => p.id == id)
 }
   async createProject(data){

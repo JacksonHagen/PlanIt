@@ -24,9 +24,11 @@ import { ref } from "@vue/reactivity";
 import { Modal } from "bootstrap";
 import { sprintsService } from "../services/SprintsService";
 import Pop from "../utils/Pop";
+import { useRoute } from 'vue-router';
 export default {
   setup() {
-    const editable = ref({});
+    const route = useRoute()
+    const editable = ref({ projectId: route.params.projectId });
 
     return {
       editable,

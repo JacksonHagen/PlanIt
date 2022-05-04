@@ -32,8 +32,8 @@ export default {
     const route = useRoute();
     onMounted(async () => {
       try {
+        await projectsService.setActiveProject(route.params.projectId)
         await sprintsService.getAllActiveSprints(route.params.projectId);
-
       } catch (error) {
         Pop.toast("no sprints loser!");
       }

@@ -9,19 +9,17 @@ class SprintsService {
  }
 
  async createSprint(newSprint) {
-  const res = await api.post('api/projects/' + AppState.activeProject.id + '/sprints', newSprint)
+  const res = await api.post('api/projects/' + newSprint.projectId + '/sprints', newSprint)
   AppState.activeSprints.push(res.data)
   console.log(res.data);
   console.log(AppState.activeSprints);
  }
 
  async removeSprint(sprint) {
-  const index = AppState.activeSprints.findIndex(s=> s.if == sprint.id)
+  const index = AppState.activeSprints.findIndex(s=> s.id == sprint.id)
   const res = await api.delete('api/projects/' + AppState.activeProject.id + '/sprints/' + sprint.id)
   AppState.activeSprints.splice(index, 1)
-
  }
-
 } 
 
 export const sprintsService = new SprintsService()
