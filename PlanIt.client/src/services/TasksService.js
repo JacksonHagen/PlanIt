@@ -5,12 +5,10 @@ import { api } from "./AxiosService.js"
 class TasksService {
   async createTask(newTask) {
     const res = await api.post('api/projects/' + newTask.projectId + '/tasks', newTask)
-    logger.log(res)
     AppState.tasks = [...AppState.tasks, res.data]
   }
   async getTasks(projectId) {
     const res = await api.get('api/projects/' + projectId + '/tasks')
-    logger.log(res.data)
     AppState.tasks = res.data
   }
   async removeTask(taskId, projectId){
@@ -22,7 +20,7 @@ class TasksService {
   async moveTask(task, sprint){
     task.sprintId = sprint.sprintId
     await api.put('api/projects/'+ sprint.projectId + '/tasks/'+ task.id, task)
-    this.getTasks(sprint.projectId)//NOTE make move task dropdown on page
+    this.getTasks(sprint.projectId)
   }
 }
 

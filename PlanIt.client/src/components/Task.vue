@@ -17,14 +17,14 @@
         <div class="collapse" :id="'t-' + task.id">
           <div class="bg-aqua rounded p-3 elevation-2">
             <form @submit.prevent="moveTask()">
-              <div class="row">
-                <div class="col-6">
+              <div class="row justify-content-between">
+                <div class="col-3">
                   <div class="mb-3">
                     <label for="sprintSelect" class="form-label"
                       >Select Sprint</label
                     >
                     <select
-                      class="form-control"
+                      class="btn w-100"
                       name="sprintSelect"
                       id="sprintSelect"
                       v-model="editable.sprintId"
@@ -35,10 +35,11 @@
                       </option>
                     </select>
                   </div>
+                  <button type="submit" class="btn btn-primary w-100">
+                    Change Sprint
+                  </button>
                 </div>
-                <div class="col-6">
-                  <button type="submit" class="btn btn-success">submit</button>
-                </div>
+                <div class="col-9"></div>
               </div>
             </form>
           </div>
