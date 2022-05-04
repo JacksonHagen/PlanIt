@@ -4,7 +4,13 @@
       <h2 class="btn">
         {{ sprint.name }}
       </h2>
-      <button @click="openModal()" class="btn btn-success">Create Task</button>
+      <button
+        @click="openModal()"
+        class="btn btn-success"
+        v-if="account.id === sprint.creatorId"
+      >
+        Create Task
+      </button>
     </div>
     <div class="col-2 text-end">
       <i
@@ -14,9 +20,9 @@
     </div>
     <div class="container">
       <ul>
-      <div v-for="t in tasks" :key="t.id">
-        <Task v-if="t.sprintId == sprint.id" :task="t" />
-      </div>
+        <div v-for="t in tasks" :key="t.id">
+          <Task v-if="t.sprintId == sprint.id" :task="t" />
+        </div>
       </ul>
     </div>
   </div>
@@ -47,6 +53,7 @@ export default {
   setup(props) {
 
     return {
+      account: computed(() => AppState.account),
       tasks: computed(() => AppState.tasks),
       async removeSprint() {
         try {
