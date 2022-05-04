@@ -1,12 +1,35 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
+    <div class="row" v-if="!activeProject">
+      <div class="col-12 text-center">
+        <h1>Loading...</h1>
+      </div>
+    </div>
+    <div class="row" v-else>
+      <button @click="openOffCanvas()"></button>
+
+      <div class="col-2 text-end" v-if="account.id === activeProject.creatorId">
+        <i
+          class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
+          @click="removeProject"
+        ></i>
+      </div>
+
+      <div class="col-10">
         <div @click="openModal()" class="btn">Create Sprint</div>
         <Sprint v-for="s in activeSprints" :key="s.id" :sprint="s" />
       </div>
     </div>
   </div>
+  <OffCanvas id="project-canvas">
+    <template #body>
+      <div v-for="p in projects" :key="p.id" :project="p">
+        <h5 @click="goToProject(p.id)" class="pointer">
+          {{ p.name }}
+        </h5>
+      </div>
+    </template>
+  </OffCanvas>
   <Modal id="createSprintModal">
     <template #title>
       <h5>Create a Sprint!</h5>
@@ -20,10 +43,10 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, watchEffect } from "@vue/runtime-core";
 import Pop from "../utils/Pop";
-import { Modal } from "bootstrap";
-import { useRoute } from "vue-router";
+import { Modal, Offcanvas } from "bootstrap";
+import { useRoute, useRouter } from "vue-router";
 import { projectsService } from "../services/ProjectsService";
 import { sprintsService } from "../services/SprintsService";
 import { tasksService } from '../services/TasksService.js';
@@ -31,24 +54,57 @@ export default {
   name: "Project",
   setup() {
     const route = useRoute();
-    onMounted(async () => {
+    const router = useRouter();
+    watchEffect(async () => {
       try {
-        const projectId = route.params.projectId
-        await tasksService.getTasks(projectId)
-        await projectsService.setActiveProject(projectId)
-        await sprintsService.getAllActiveSprints(projectId);
+        AppState.activeProject = null
+        if (route.params.projectId) {
+          const projectId = route.params.projectId
+          await tasksService.getTasks(projectId)
+          await projectsService.setActiveProject(projectId)
+          await sprintsService.getAllActiveSprints(projectId);
+        }
       } catch (error) {
         Pop.toast("no sprints loser!");
       }
     });
     return {
+      activeProject: computed(() => AppState.activeProject),
       activeSprints: computed(() => AppState.activeSprints),
+      account: computed(() => AppState.account),
+      projects: computed(() => AppState.projects),
+
       openModal() {
         document.getElementById("sprintForm").reset();
         Modal.getOrCreateInstance(
           document.getElementById("createSprintModal")
         ).toggle();
       },
+      async openOffCanvas() {
+        await projectsService.getAllProjects(this.account.id)
+        Offcanvas.getOrCreateInstance(
+          document.getElementById("project-canvas")
+        ).toggle();
+      },
+      goToProject(id) {
+        router.push({ path: '/project/' + id })
+        Offcanvas.getOrCreateInstance(
+          document.getElementById("project-canvas")
+        ).toggle();
+      },
+      async removeProject() {
+        try {
+          if (await Pop.confirm()) {
+            await projectsService.deleteProject(route.params.projectId)
+            Pop.toast('wow that sure worked', 'success')
+            router.push({ name: 'Home' })
+          }
+        }
+        catch (error) {
+          console.error("could not delete", error.message);
+          Pop.toast(error.message, "error");
+        }
+      }
     };
   },
 };

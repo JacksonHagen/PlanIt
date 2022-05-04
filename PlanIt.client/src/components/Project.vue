@@ -8,17 +8,13 @@
         {{ project.description }}
       </p>
     </div>
-    <div class="col-2 text-end">
-      <i
-        class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
-        @click="removeProject"
-      ></i>
-    </div>
+    
   </div>
   <br />
 </template>
 
 <script>
+import { computed } from '@vue/reactivity';
 import { useRouter } from "vue-router";
 import { AppState } from "../AppState.js";
 import { Project } from "../Models/Project.js";
@@ -34,6 +30,7 @@ export default {
   setup(props) {
     const router = useRouter();
     return {
+      account: computed(() => AppState.account),
       goToProject() {
         router.push({ path: "/project/" + props.project.id });
         projectsService.setActiveProject(props.project.id);

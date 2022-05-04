@@ -4,6 +4,7 @@ import { api } from "./AxiosService";
 
 class SprintsService {
  async getAllActiveSprints(id) {
+  AppState.activeSprints = []
   const res = await api.get('api/projects/' + id + '/sprints')
   AppState.activeSprints = res.data
  }

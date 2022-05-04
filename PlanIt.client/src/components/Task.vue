@@ -2,11 +2,14 @@
   <li>
     <div class="row justify-content-between m-1">
       <div class="col-10">
-        <h2 class="btn" type="button" @click="toggleCollapse()">
+        <h2>
           {{ task.name }}
         </h2>
+        <div v-if="account.id === task.creatorId">
+          <div class="btn btn-info" @click="toggleCollapse()">hello</div>
+        </div>
       </div>
-      <div class="col-2 text-end">
+      <div class="col-2 text-end" v-if="account.id === task.creatorId">
         <i
           class="mdi mdi-close mdi-24px text-secondary lighten-10 pointer"
           @click="removeTask()"
@@ -69,6 +72,7 @@ export default {
     const route = useRoute()
     const editable = ref({ projectId: route.params.projectId })
     return {
+      account: computed(() => AppState.account),
       editable,
       sprints: computed(() => AppState.activeSprints),
       toggleCollapse() {

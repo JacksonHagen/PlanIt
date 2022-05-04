@@ -4,15 +4,13 @@
       <h2 class="btn">
         {{ sprint.name }}
       </h2>
-      <button
-        @click="openModal()"
-        class="btn btn-success"
-        v-if="account.id === sprint.creatorId"
-      >
-        Create Task
-      </button>
+      <div v-if="account.id === sprint.creatorId">
+        <button @click="openModal()" class="btn btn-success">
+          Create Task
+        </button>
+      </div>
     </div>
-    <div class="col-2 text-end">
+    <div class="col-2 text-end" v-if="account.id === sprint.creatorId">
       <i
         class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
         @click="removeSprint()"

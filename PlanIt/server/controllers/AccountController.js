@@ -8,6 +8,8 @@ export class AccountController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
+      // .put('')
+      // TODO put request
   }
 
   async getUserAccount(req, res, next) {
@@ -18,4 +20,6 @@ export class AccountController extends BaseController {
       next(error)
     }
   }
+  //TODO edit account info
+  //function to edit is written in the service but not in the controller
 }
