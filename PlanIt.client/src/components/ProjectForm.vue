@@ -37,18 +37,21 @@ import { ref } from "@vue/reactivity";
 import Pop from "../utils/Pop.js";
 import { projectsService } from "../services/ProjectsService.js";
 import { Modal } from "bootstrap";
+import { useRouter } from 'vue-router';
 export default {
   setup() {
     const editable = ref({});
+    const router = useRouter()
     return {
       editable,
       async create() {
         try {
-          await projectsService.createProject(editable.value);
+          const newProject = await projectsService.createProject(editable.value);
           document.getElementById("projectForm").reset();
           Modal.getOrCreateInstance(
             document.getElementById("createProjectModal")
           ).toggle();
+          router.push({ path: '/project/' + newProject.id })
         } catch (error) {
           console.error("[error prefix]", error.message);
           Pop.toast(error.message, "error");

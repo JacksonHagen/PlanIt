@@ -15,6 +15,7 @@ class ProjectsService {
   async createProject(data){
     const res = await api.post('api/projects', data)
     AppState.projects.unshift(new Project(res.data))
+    return new Project(res.data)
   }
   async deleteProject(id) {
     
