@@ -6,12 +6,23 @@ class TasksService {
   async createTask(newTask) {
     const res = await api.post('api/projects/' + newTask.projectId + '/tasks', newTask)
     logger.log(res)
-    AppState.tasks.push(res.data)
+    AppState.tasks = [...AppState.tasks, res.data]
   }
-  async getTasks() {
-    const res = await api.get('api/projects/' + AppState.activeProject.id + '/tasks')
+  async getTasks(projectId) {
+    const res = await api.get('api/projects/' + projectId + '/tasks')
     logger.log(res.data)
-    AppState.tasks = res.data.filter
+    AppState.tasks = res.data
+  }
+  async removeTask(taskId, projectId){
+    await api.delete('api/projects/'+ projectId + '/tasks/' + taskId)
+    const index = AppState.tasks.findIndex(t => t.id == taskId)
+    AppState.tasks.splice(index, 1)
+    
+  }
+  async moveTask(task, sprint){
+    task.sprintId = sprint.sprintId
+    await api.put('api/projects/'+ sprint.projectId + '/tasks/'+ task.id, task)
+    this.getTasks(sprint.projectId)//NOTE make move task dropdown on page
   }
 }
 

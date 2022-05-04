@@ -26,14 +26,17 @@ import { Modal } from "bootstrap";
 import { useRoute } from "vue-router";
 import { projectsService } from "../services/ProjectsService";
 import { sprintsService } from "../services/SprintsService";
+import { tasksService } from '../services/TasksService.js';
 export default {
   name: "Project",
   setup() {
     const route = useRoute();
     onMounted(async () => {
       try {
-        await projectsService.setActiveProject(route.params.projectId)
-        await sprintsService.getAllActiveSprints(route.params.projectId);
+        const projectId = route.params.projectId
+        await tasksService.getTasks(projectId)
+        await projectsService.setActiveProject(projectId)
+        await sprintsService.getAllActiveSprints(projectId);
       } catch (error) {
         Pop.toast("no sprints loser!");
       }

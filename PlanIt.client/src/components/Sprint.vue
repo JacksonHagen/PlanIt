@@ -1,6 +1,6 @@
 <template>
-  <div class="row justify-content-between m-1">
-    <div class="col-10">
+  <div class="row justify-content-between m-1 border border-dark">
+    <div class="col-10 p-3">
       <h2 class="btn">
         {{ sprint.name }}
       </h2>
@@ -13,7 +13,11 @@
       ></i>
     </div>
     <div class="container">
-      <Task v-for="t in tasks" :key="t.id" :task="t" />
+      <ul>
+      <div v-for="t in tasks" :key="t.id">
+        <Task v-if="t.sprintId == sprint.id" :task="t" />
+      </div>
+      </ul>
     </div>
   </div>
   <br />
@@ -41,6 +45,7 @@ export default {
     },
   },
   setup(props) {
+
     return {
       tasks: computed(() => AppState.tasks),
       async removeSprint() {
