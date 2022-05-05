@@ -20,6 +20,16 @@ export class AccountController extends BaseController {
       next(error)
     }
   }
+
+  async editAccount(req, res, next) {
+    try {
+      req.body.id = req.params.id
+      const updatedAccount = await accountService.updateAccount(req.body, req.userInfo.id)
+      res.send(updatedAccount)
+    } catch (error) {
+      next(error)
+    }
+  }
   //TODO edit account info
   //function to edit is written in the service but not in the controller
 }
