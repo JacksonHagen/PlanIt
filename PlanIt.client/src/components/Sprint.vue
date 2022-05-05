@@ -1,10 +1,10 @@
 <template>
   <div class="row justify-content-between m-1 border border-dark">
     <div class="col-10 p-3">
-      <h2 class="btn">
+      <h3>
         {{ sprint.name }}
-        {{ taskWeight }}
-      </h2>
+      </h3>
+      <h5 v-if="taskWeight > 0">Total Weight of tasks: {{ taskWeight }}</h5>
       <div v-if="account.id === sprint.creatorId">
         <button @click="openModal()" class="btn btn-success">
           Create Task

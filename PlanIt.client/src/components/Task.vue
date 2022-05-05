@@ -2,18 +2,22 @@
   <li>
     <div class="row justify-content-between m-1">
       <div class="col-10">
-        <span class="d-flex justify-content-between">
-          <i
-            @click="toggleCompleted()"
-            class="mdi selectable"
-            :class="
-              task.isCompleted
-                ? 'mdi-checkbox-marked-outline'
-                : 'mdi-checkbox-blank-outline'
-            "
-          ></i>
-          <h5>{{ task.name }}</h5>
-          <h5>{{ task.weight }}</h5>
+        <span class="d-flex flex-column">
+          <div class="d-flex">
+            <i
+              @click="toggleCompleted()"
+              class="mdi selectable"
+              :class="
+                task.isCompleted
+                  ? 'mdi-checkbox-marked-outline'
+                  : 'mdi-checkbox-blank-outline'
+              "
+            ></i>
+            <h5 class="ms-2">{{ task.name }}</h5>
+          </div>
+          <div class="">
+            <h5>Weight: {{ task.weight }}</h5>
+          </div>
           <div v-for="n in notes" :key="n.id">
             <Note v-if="task.id == n.taskId" :note="n" />
           </div>

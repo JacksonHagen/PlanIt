@@ -2,7 +2,11 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <img class="image-fluid" :src="note.creator.picture" alt="" />
+        <img
+          class="profile-pic rounded-pill"
+          :src="note.creator.picture"
+          alt=""
+        />
       </div>
       <div class="col">
         {{ note.creator.name }}
@@ -53,4 +57,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.profile-pic {
+  object-fit: cover;
+  height: 100px;
+  width: 100px;
+}
+</style>

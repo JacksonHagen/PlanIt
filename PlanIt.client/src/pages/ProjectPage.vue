@@ -1,21 +1,30 @@
 <template>
-  <div class="container">
-    <div class="row" v-if="!activeProject">
+  <div class="container" v-if="!activeProject">
+    <div class="row">
       <div class="col-12 text-center">
         <h1>Loading...</h1>
       </div>
     </div>
-    <div class="row" v-else>
-      <button @click="openOffCanvas()"></button>
-
+  </div>
+  <div class="container" v-else>
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1>{{ activeProject.name }}</h1>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-2 text-end" v-if="account.id === activeProject.creatorId">
+        <button @click="openOffCanvas()" class="btn btn-outline-primary">
+          Projects
+        </button>
         <i
           class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
           @click="removeProject"
         ></i>
       </div>
-
-      <div class="col-10">
+    </div>
+    <div class="row">
+      <div class="col-12">
         <div @click="openModal()" class="btn">Create Sprint</div>
         <Sprint v-for="s in activeSprints" :key="s.id" :sprint="s" />
       </div>
@@ -55,6 +64,15 @@ export default {
   setup() {
     const route = useRoute();
     const router = useRouter();
+    onMounted(async () => {
+      try {
+        await projectsService.getAllProjects(route.params.projectId)
+      }
+      catch (error) {
+        console.error("[Couldnt get projects]", error.message);
+        Pop.toast(error.message, "error");
+      }
+    })
     watchEffect(async () => {
       try {
         AppState.activeProject = null
@@ -81,7 +99,7 @@ export default {
         ).toggle();
       },
       async openOffCanvas() {
-        await projectsService.getAllProjects(this.account.id)
+
         Offcanvas.getOrCreateInstance(
           document.getElementById("project-canvas")
         ).toggle();

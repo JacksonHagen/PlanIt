@@ -2,20 +2,19 @@
   <div class="container-fluid card">
     <div class="row justify-content-center">
       <div class="col-md-8">
+        <div class="">
+          <button
+            class="btn btn-outline-success"
+            type="button"
+            @click="openModal()"
+          >
+            Create Project
+          </button>
+        </div>
         <div v-if="projects" class="">
           <Project v-for="p in projects" :key="p.id" :project="p" />
         </div>
       </div>
-    </div>
-    <div class="">
-      <button
-        class="btn btn-outline-success"
-        type="button"
-        @click="openModal()"
-      >
-        Create Project
-      </button>
-      <!-- <ProjectForm /> -->
     </div>
   </div>
   <Modal id="createProjectModal">

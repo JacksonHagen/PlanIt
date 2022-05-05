@@ -44,6 +44,8 @@ export default {
       async createNote() {
         try {
           await notesService.createNote(editable.value);
+          Pop.toast('Note added!', 'success')
+          document.getElementById('noteForm').reset()
         } catch (error) {
           console.error(error);
           Pop.toast(error.message, "error");
