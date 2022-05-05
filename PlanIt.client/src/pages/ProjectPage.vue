@@ -26,7 +26,9 @@
     <div class="row">
       <div class="col-12">
         <div @click="openModal()" class="btn">Create Sprint</div>
-        <Sprint v-for="s in activeSprints" :key="s.id" :sprint="s" />
+        <div class="row">
+          <Sprint v-for="s in activeSprints" :key="s.id" :sprint="s" />
+        </div>
       </div>
     </div>
   </div>
@@ -59,12 +61,20 @@ import { useRoute, useRouter } from "vue-router";
 import { projectsService } from "../services/ProjectsService";
 import { sprintsService } from "../services/SprintsService";
 import { tasksService } from '../services/TasksService.js';
+import { notesService } from '../services/NotesService.js';
 export default {
   name: "Project",
   setup() {
     const route = useRoute();
     const router = useRouter();
     onMounted(async () => {
+      try {
+        await notesService.getAllNotes(route.params.projectId)
+      }
+      catch (error) {
+        console.error("[Couldnt get notes]", error.message);
+        Pop.toast(error.message, "error");
+      }
       try {
         await projectsService.getAllProjects(route.params.projectId)
       }
@@ -78,9 +88,9 @@ export default {
         AppState.activeProject = null
         if (route.params.projectId) {
           const projectId = route.params.projectId
-          await tasksService.getTasks(projectId)
           await projectsService.setActiveProject(projectId)
           await sprintsService.getAllActiveSprints(projectId);
+          await tasksService.getTasks(projectId)
         }
       } catch (error) {
         Pop.toast("no sprints loser!");
@@ -128,4 +138,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

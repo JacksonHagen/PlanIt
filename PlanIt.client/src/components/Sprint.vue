@@ -1,28 +1,40 @@
 <template>
-  <div class="row justify-content-between m-1 border border-dark">
-    <div class="col-10 p-3">
-      <h3>
-        {{ sprint.name }}
-      </h3>
-      <h5 v-if="taskWeight > 0">Total Weight of tasks: {{ taskWeight }}</h5>
-      <div v-if="account.id === sprint.creatorId">
-        <button @click="openModal()" class="btn btn-success">
-          Create Task
-        </button>
-      </div>
-    </div>
-    <div class="col-2 text-end" v-if="account.id === sprint.creatorId">
-      <i
-        class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
-        @click="removeSprint()"
-      ></i>
-    </div>
-    <div class="container">
-      <ul>
-        <div v-for="t in tasks" :key="t.id">
-          <Task v-if="t.sprintId == sprint.id" :task="t" />
+  <div class="col-md-4">
+    <div
+      class="
+        row
+        justify-content-between
+        m-1
+        border border-dark
+        rounded
+        sprint-card
+        p-2
+      "
+    >
+      <div class="col-10 p-3">
+        <h3>
+          {{ sprint.name }}
+        </h3>
+        <h5 v-if="taskWeight > 0">Total Weight of tasks: {{ taskWeight }}</h5>
+        <div v-if="account.id === sprint.creatorId">
+          <button @click="openModal()" class="btn btn-success">
+            Create Task
+          </button>
         </div>
-      </ul>
+      </div>
+      <div class="col-2 text-end" v-if="account.id === sprint.creatorId">
+        <i
+          class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
+          @click="removeSprint()"
+        ></i>
+      </div>
+      <div class="container">
+        <ul>
+          <div v-for="t in tasks" :key="t.id">
+            <Task v-if="t.sprintId == sprint.id" :task="t" />
+          </div>
+        </ul>
+      </div>
     </div>
   </div>
   <br />
@@ -84,4 +96,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.sprint-card {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+</style>

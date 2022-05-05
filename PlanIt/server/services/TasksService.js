@@ -16,12 +16,10 @@ class TasksService {
     if(!task) {
       throw new BadRequest('Could not find task')
     }
-    if(task.creatorId.toString() !== userId.toString()) {
-      throw new BadRequest('You cannot edit tasks you did not create')
-    }
+
     task.name = newTask.name || task.name
     task.weight = newTask.weight || task.weight
-    task.isCompleted = newTask.isCompleted || task.isCompleted
+    task.isComplete = newTask.isComplete || task.isComplete
     task.sprintId = newTask.sprintId || task.sprintId
     await task.save()
     return task

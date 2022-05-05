@@ -60,7 +60,7 @@ export default {
 <style lang="scss" scoped>
 .profile-pic {
   object-fit: cover;
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
 }
 </style>

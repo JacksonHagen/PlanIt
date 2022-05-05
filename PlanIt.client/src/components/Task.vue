@@ -8,7 +8,7 @@
               @click="toggleCompleted()"
               class="mdi selectable"
               :class="
-                task.isCompleted
+                task.isComplete
                   ? 'mdi-checkbox-marked-outline'
                   : 'mdi-checkbox-blank-outline'
               "
@@ -122,7 +122,6 @@ export default {
       },
       async toggleCompleted() {
         try {
-          props.task.isCompleted = !props.task.isCompleted;
           props.task.projectId = route.params.projectId;
           await tasksService.toggleCompleted(props.task);
         } catch (error) {

@@ -23,8 +23,8 @@ class TasksService {
     this.getTasks(sprint.projectId)
   }
   async toggleCompleted(task) {
+    task.isComplete = !(task.isComplete)
     const res = await api.put('api/projects/' + task.projectId + '/tasks/' + task.id, task)
-    this.getTasks(task.projectId)
   }
 }
 

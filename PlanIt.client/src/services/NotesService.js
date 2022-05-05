@@ -11,6 +11,10 @@ class NotesService {
   const index = AppState.notes.findIndex(n => n.id == note.id)
   AppState.notes.splice(index, 1)
  }
+ async getAllNotes(projectId) {
+   const res = await api.get('api/projects/' + projectId + '/notes')
+   AppState.notes = res.data
+ }
 }
 
 

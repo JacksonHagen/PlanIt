@@ -10,8 +10,8 @@ class ProjectsService {
   }
 
   async setActiveProject(id) {
-  await this.getAllProjects()
-  AppState.activeProject = AppState.projects.find(p => p.id == id)
+  const res = await api.get('api/projects/' + id)
+  AppState.activeProject = new Project(res.data)
 }
   async createProject(data){
     const res = await api.post('api/projects', data)
