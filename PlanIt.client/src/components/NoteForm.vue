@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <form @submit.prevent="createNote()" id="noteForm" class="text-center">
-      <div class="mb-3">
+      <div class="text-start">
         <label for="body" class="form-label">Note</label>
         <textarea
           type="text"
@@ -14,9 +14,8 @@
           required
         >
         </textarea>
+        <button class="btn btn-sm w-100 mt-1 bg-dark" type="submit">+</button>
       </div>
-
-      <button class="btn btn-info w-50 mt-3" type="submit">Submit</button>
     </form>
   </div>
 </template>

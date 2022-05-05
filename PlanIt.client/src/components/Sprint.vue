@@ -4,36 +4,37 @@
       class="
         row
         justify-content-between
-        m-1
         border border-dark
         rounded
         sprint-card
-        p-2
+        p-1
+        tiny-margin
+        bg-light
       "
     >
-      <div class="col-10 p-3">
-        <h3>
-          {{ sprint.name }}
-        </h3>
-        <h5 v-if="taskWeight > 0">Total Weight of tasks: {{ taskWeight }}</h5>
-        <div v-if="account.id === sprint.creatorId">
-          <button @click="openModal()" class="btn btn-success">
-            Create Task
-          </button>
+      <div class="col-12 bg-dark p-0 d-flex justify-content-between">
+        <div class="p-2">
+          <h3>
+            {{ sprint.name }}
+          </h3>
+          <h5 v-if="taskWeight > 0">Total Weight of tasks: {{ taskWeight }}</h5>
+        </div>
+        <div class="bg-dark" v-if="account.id === sprint.creatorId">
+          <i
+            class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
+            @click="removeSprint()"
+          ></i>
         </div>
       </div>
-      <div class="col-2 text-end" v-if="account.id === sprint.creatorId">
-        <i
-          class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
-          @click="removeSprint()"
-        ></i>
+
+      <div v-if="account.id === sprint.creatorId" class="my-3">
+        <button @click="openModal()" class="btn btn-success">
+          Create Task
+        </button>
       </div>
-      <div class="container">
-        <ul>
-          <div v-for="t in tasks" :key="t.id">
-            <Task v-if="t.sprintId == sprint.id" :task="t" />
-          </div>
-        </ul>
+
+      <div v-for="t in tasks" :key="t.id">
+        <Task v-if="t.sprintId == sprint.id" :task="t" />
       </div>
     </div>
   </div>
@@ -100,5 +101,11 @@ export default {
 .sprint-card {
   max-height: 60vh;
   overflow-y: auto;
+}
+.tiny-margin {
+  margin: 0.1%;
+}
+.top-0 {
+  top: 0;
 }
 </style>

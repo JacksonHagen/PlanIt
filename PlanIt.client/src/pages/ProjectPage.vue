@@ -14,9 +14,6 @@
     </div>
     <div class="row">
       <div class="col-2 text-end" v-if="account.id === activeProject.creatorId">
-        <button @click="openOffCanvas()" class="btn btn-outline-primary">
-          Projects
-        </button>
         <i
           class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
           @click="removeProject"
@@ -25,7 +22,16 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div @click="openModal()" class="btn">Create Sprint</div>
+        <div
+          v-if="account.id === activeProject.creatorId"
+          @click="openModal()"
+          class="btn btn-outline-primary"
+        >
+          Create Sprint
+        </div>
+        <button @click="openOffCanvas()" class="btn btn-outline-primary">
+          Projects
+        </button>
         <div class="row">
           <Sprint v-for="s in activeSprints" :key="s.id" :sprint="s" />
         </div>

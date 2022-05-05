@@ -7,9 +7,8 @@
     aria-labelledby="offcanvasScrollingLabel"
   >
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
-        Colored with scrolling
-      </h5>
+      <h2 class="" id="offcanvasScrollingLabel">Projects</h2>
+      <hr />
       <button
         type="button"
         class="btn-close text-reset"

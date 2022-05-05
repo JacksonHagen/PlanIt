@@ -1,73 +1,76 @@
 <template>
-  <li>
-    <div class="row justify-content-between m-1">
-      <div class="col-10">
-        <span class="d-flex flex-column">
-          <div class="d-flex">
+  <div class="row justify-content-between m-1">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <span class="d-flex flex-column">
+        <div class="d-flex justify-content-between">
+          <span class="d-flex">
             <i
               @click="toggleCompleted()"
-              class="mdi selectable"
+              class="mdi selectable mdi-24px"
               :class="
                 task.isComplete
                   ? 'mdi-checkbox-marked-outline'
                   : 'mdi-checkbox-blank-outline'
               "
-            ></i>
-            <h5 class="ms-2">{{ task.name }}</h5>
-          </div>
-          <div class="">
-            <h5>Weight: {{ task.weight }}</h5>
-          </div>
-          <div v-for="n in notes" :key="n.id">
-            <Note v-if="task.id == n.taskId" :note="n" />
-          </div>
-        </span>
-        <NoteForm :task="task" />
+            >
+            </i>
+            <h3 class="ms-2">{{ task.name }}</h3>
+          </span>
+          <h6 class="mt-2 me-4">Weight: {{ task.weight }}</h6>
+        </div>
+        <div class=""></div>
         <div v-if="account.id === task.creatorId">
-          <div class="btn btn-info" @click="toggleCollapse()">hello</div>
-        </div>
-      </div>
-      <div class="col-2 text-end" v-if="account.id === task.creatorId">
-        <i
-          class="mdi mdi-close mdi-24px text-secondary lighten-10 pointer"
-          @click="removeTask()"
-        ></i>
-      </div>
-      <!-- REVIEW Making a collapsable for the form -->
-      <div class="col-12">
-        <div class="collapse" :id="'t-' + task.id">
-          <div class="bg-aqua rounded p-3 elevation-2">
-            <form @submit.prevent="moveTask()">
-              <div class="row justify-content-between">
-                <div class="col-3">
-                  <div class="mb-3">
-                    <label for="sprintSelect" class="form-label"
-                      >Select Sprint</label
-                    >
-                    <select
-                      class="btn w-100"
-                      name="sprintSelect"
-                      id="sprintSelect"
-                      v-model="editable.sprintId"
-                    >
-                      <!-- REVIEW Creating the options for every sprint -->
-                      <option v-for="s in sprints" :key="s.id" :value="s.id">
-                        {{ s.name }}
-                      </option>
-                    </select>
-                  </div>
-                  <button type="submit" class="btn btn-primary w-100">
-                    Change Sprint
-                  </button>
-                </div>
-                <div class="col-9"></div>
-              </div>
-            </form>
+          <div class="btn" @click="toggleCollapse('t-' + task.id)">
+            <i class="mdi mdi-chevron-down mdi-24px"></i>
           </div>
         </div>
-      </div>
+        <div class="col-12">
+          <div class="collapse" :id="'t-' + task.id">
+            <div class="bg-aqua rounded p-3 elevation-2">
+              <form @submit.prevent="moveTask()">
+                <div class="row justify-content-between">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="sprintSelect" class="form-label"
+                        >Select Sprint</label
+                      >
+                      <select
+                        class="btn w-100"
+                        name="sprintSelect"
+                        id="sprintSelect"
+                        v-model="editable.sprintId"
+                      >
+                        <!-- REVIEW Creating the options for every sprint -->
+                        <option v-for="s in sprints" :key="s.id" :value="s.id">
+                          {{ s.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                      Change Sprint
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div v-for="n in notes" :key="n.id">
+          <Note v-if="task.id == n.taskId" :note="n" />
+        </div>
+      </span>
+      <NoteForm :task="task" />
     </div>
-  </li>
+    <div class="col-1 text-end" v-if="account.id === task.creatorId">
+      <i
+        class="mdi mdi-close mdi-24px text-secondary lighten-10 pointer"
+        @click="removeTask()"
+      ></i>
+    </div>
+    <!-- REVIEW Making a collapsable for the form -->
+  </div>
+
   <br />
 </template>
 
@@ -93,11 +96,10 @@ export default {
       account: computed(() => AppState.account),
       editable,
       sprints: computed(() => AppState.activeSprints),
-      toggleCollapse() {
-        Collapse.getOrCreateInstance(
-          document.getElementById("t-" + props.task.id)
-        ).toggle();
+      toggleCollapse(id) {
+        Collapse.getOrCreateInstance(document.getElementById(id)).toggle()
       },
+
       async moveTask() {
         try {
           await tasksService.moveTask(props.task, editable.value);
