@@ -1,17 +1,15 @@
-import { Auth0Provider } from '@bcwdev/auth0provider'
-import { accountService } from '../services/AccountService'
-import BaseController from '../utils/BaseController'
-
+import { Auth0Provider } from "@bcwdev/auth0provider"
+import { accountService } from "../services/AccountService"
+import BaseController from "../utils/BaseController"
 export class AccountController extends BaseController {
   constructor() {
-    super('account')
+    super("account")
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getUserAccount)
-      // .put('')
-      // TODO put request
+      .get("", this.getUserAccount)
+      .put("", this.editAccount)
+      // REVIEW Does ^ this work?
   }
-
   async getUserAccount(req, res, next) {
     try {
       const account = await accountService.getAccount(req.userInfo)
@@ -20,11 +18,10 @@ export class AccountController extends BaseController {
       next(error)
     }
   }
-
   async editAccount(req, res, next) {
     try {
-      req.body.id = req.params.id
-      const updatedAccount = await accountService.updateAccount(req.body, req.userInfo.id)
+      req.body.id = req.userInfo.id
+      const updatedAccount = await accountService.updateAccount(req.userInfo, req.body)
       res.send(updatedAccount)
     } catch (error) {
       next(error)

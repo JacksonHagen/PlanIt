@@ -3,6 +3,7 @@
     <div class="col-10 p-3">
       <h2 class="btn">
         {{ sprint.name }}
+        {{ taskWeight }}
       </h2>
       <div v-if="account.id === sprint.creatorId">
         <button @click="openModal()" class="btn btn-success">
@@ -36,31 +37,38 @@
 </template>
 
 <script>
-import { Modal } from 'bootstrap';
-import { sprintsService } from '../services/SprintsService.js';
-import Pop from '../utils/Pop.js';
-import { computed } from '@vue/reactivity';
-import { AppState } from '../AppState.js';
+import { Modal } from "bootstrap";
+import { sprintsService } from "../services/SprintsService.js";
+import Pop from "../utils/Pop.js";
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
 export default {
   props: {
     sprint: {
       type: Object,
-      required: true
+      required: true,
     },
   },
   setup(props) {
-
     return {
       account: computed(() => AppState.account),
       tasks: computed(() => AppState.tasks),
+      taskWeight: computed(() => {
+        let totalWeight = 0;
+        AppState.tasks.forEach((t) => {
+          if (t.sprintId == props.sprint.id) {
+            totalWeight += t.weight;
+          }
+        });
+        return totalWeight;
+      }),
       async removeSprint() {
         try {
           if (await Pop.confirm()) {
-            await sprintsService.removeSprint(props.sprint)
-            Pop.toast('Sprint Removed!', 'success')
+            await sprintsService.removeSprint(props.sprint);
+            Pop.toast("Sprint Removed!", "success");
           }
-        }
-        catch (error) {
+        } catch (error) {
           console.error("[COULD NOT REMOVE SPRINT]", error.message);
           Pop.toast(error.message, "error");
         }
@@ -70,7 +78,7 @@ export default {
         Modal.getOrCreateInstance(
           document.getElementById(`s-${props.sprint.id}`)
         ).toggle();
-      }
+      },
     };
   },
 };

@@ -22,6 +22,10 @@ class TasksService {
     await api.put('api/projects/'+ sprint.projectId + '/tasks/'+ task.id, task)
     this.getTasks(sprint.projectId)
   }
+  async toggleCompleted(task) {
+    const res = await api.put('api/projects/' + task.projectId + '/tasks/' + task.id, task)
+    this.getTasks(task.projectId)
+  }
 }
 
 export const tasksService = new TasksService()

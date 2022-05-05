@@ -1,7 +1,5 @@
-import { dbContext } from '../db/DbContext'
-
+import { dbContext } from "../db/DbContext"
 // Private Methods
-
 /**
  * Creates account if one does not exist
  * @param {any} account
@@ -17,7 +15,6 @@ async function createAccountIfNeeded(account, user) {
   }
   return account
 }
-
 /**
  * Adds sub to account if not already on account
  * @param {any} account
@@ -41,7 +38,6 @@ function sanitizeBody(body) {
   }
   return writable
 }
-
 class AccountService {
   /**
    * Returns a user account from the Auth0 user object
@@ -59,7 +55,6 @@ class AccountService {
     await mergeSubsIfNeeded(account, user)
     return account
   }
-
   /**
    * Updates account with the request body, will only allow changes to editable fields
    *  @param {any} user Auth0 user object

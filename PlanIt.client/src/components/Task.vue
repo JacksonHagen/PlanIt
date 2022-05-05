@@ -2,9 +2,23 @@
   <li>
     <div class="row justify-content-between m-1">
       <div class="col-10">
-        <h2>
-          {{ task.name }}
-        </h2>
+        <span class="d-flex justify-content-between">
+          <i
+            @click="toggleCompleted()"
+            class="mdi selectable"
+            :class="
+              task.isCompleted
+                ? 'mdi-checkbox-marked-outline'
+                : 'mdi-checkbox-blank-outline'
+            "
+          ></i>
+          <h5>{{ task.name }}</h5>
+          <h5>{{ task.weight }}</h5>
+          <div v-for="n in notes" :key="n.id">
+            <Note v-if="task.id == n.taskId" :note="n" />
+          </div>
+        </span>
+        <NoteForm :task="task" />
         <div v-if="account.id === task.creatorId">
           <div class="btn btn-info" @click="toggleCollapse()">hello</div>
         </div>
@@ -53,36 +67,37 @@
   <br />
 </template>
 
-
 <script>
-import { computed, onMounted, ref } from '@vue/runtime-core';
-import { tasksService } from '../services/TasksService.js';
-import Pop from '../utils/Pop.js';
-import { useRoute } from 'vue-router';
-import { Collapse } from 'bootstrap';
-import { AppState } from '../AppState.js';
+import { computed, onMounted, ref } from "@vue/runtime-core";
+import { tasksService } from "../services/TasksService.js";
+import Pop from "../utils/Pop.js";
+import { useRoute } from "vue-router";
+import { Collapse } from "bootstrap";
+import { AppState } from "../AppState.js";
 export default {
   props: {
     task: {
       type: Object,
-      required: true
+      required: true,
     },
   },
   setup(props) {
-    const route = useRoute()
-    const editable = ref({ projectId: route.params.projectId })
+    const route = useRoute();
+    const editable = ref({ projectId: route.params.projectId });
     return {
+      notes: computed(() => AppState.notes),
       account: computed(() => AppState.account),
       editable,
       sprints: computed(() => AppState.activeSprints),
       toggleCollapse() {
-        Collapse.getOrCreateInstance(document.getElementById('t-' + props.task.id)).toggle()
+        Collapse.getOrCreateInstance(
+          document.getElementById("t-" + props.task.id)
+        ).toggle();
       },
       async moveTask() {
         try {
-          await tasksService.moveTask(props.task, editable.value)
-        }
-        catch (error) {
+          await tasksService.moveTask(props.task, editable.value);
+        } catch (error) {
           console.error("[Couldnt move task]", error.message);
           Pop.toast(error.message, "error");
         }
@@ -90,20 +105,31 @@ export default {
       async removeTask() {
         try {
           if (await Pop.confirm()) {
-            await tasksService.removeTask(props.task.id, route.params.projectId)
-            Pop.toast('Task removed!', 'success')
+            await tasksService.removeTask(
+              props.task.id,
+              route.params.projectId
+            );
+            Pop.toast("Task removed!", "success");
           }
-        }
-        catch (error) {
+        } catch (error) {
           console.error("[error prefix]", error.message);
           Pop.toast(error.message, "error");
         }
-      }
-    }
-  }
-}
+      },
+      async toggleCompleted() {
+        try {
+          props.task.isCompleted = !props.task.isCompleted;
+          props.task.projectId = route.params.projectId;
+          await tasksService.toggleCompleted(props.task);
+        } catch (error) {
+          console.error(error);
+          Pop.toast(error.message, "error");
+        }
+      },
+    };
+  },
+};
 </script>
-
 
 <style lang="scss" scoped>
 .bg-aqua {
