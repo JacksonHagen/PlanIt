@@ -15,14 +15,14 @@
         aria-expanded="false"
         id="authDropdown"
       >
-        <div v-if="account.picture">
+        <div v-if="account.picture" class="bg-info p-2 container rounded">
           <img
             :src="account.picture"
             alt="account photo"
-            height="40"
+            height="70"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name }}</span>
+          <span class="text-success lighten-30 fs-4">{{ account.name }}</span>
         </div>
       </div>
       <div
@@ -46,7 +46,6 @@
   </span>
 </template>
 
-
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
@@ -67,7 +66,6 @@ export default {
 };
 </script>
 
-
 <style lang="scss" scoped>
 .dropdown-menu {
   user-select: none;
@@ -80,5 +78,8 @@ export default {
 }
 .hoverable {
   cursor: pointer;
+}
+span {
+  font-family: "Inconsolata", monospace;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-transparent mx-5">
+  <nav class="navbar navbar-expand-lg bg-transparent">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <h2 class="ms-2">Home</h2>
+      <img class="logo" src="../assets/img/ppNewLogo.png" />
     </router-link>
     <button
       class="navbar-toggler"
@@ -15,9 +15,6 @@
       <span class="navbar-toggler-icon" />
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li></li>
-      </ul>
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
@@ -43,5 +40,21 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+button {
+  background-color: rgb(219, 219, 255);
+  padding: 0.1em;
+  margin: 0;
+  border: 0.1em rgba(255, 255, 255, 0.282) groove;
+  width: 100%;
+  font-family: "Lexend Deca", sans-serif;
+}
+
+.logo {
+  width: 20em;
+}
+
+.banner {
+  width: 16em;
 }
 </style>

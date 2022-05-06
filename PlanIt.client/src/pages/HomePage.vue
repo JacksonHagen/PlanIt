@@ -1,14 +1,14 @@
 <template>
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="">
+  <div class="home">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="d-flex">
           <button
-            class="btn btn-outline-success"
+            class="btn bg-black text-light"
             type="button"
             @click="openModal()"
           >
-            Create Project
+            +Add Project+
           </button>
         </div>
         <div v-if="projects" class="row d-flex">
@@ -61,10 +61,10 @@ export default {
 <style scoped lang="scss">
 .home {
   display: grid;
-  height: 80vh;
   place-content: center;
   text-align: center;
   user-select: none;
+  padding-left: 10%;
   .home-card {
     width: 50vw;
     > img {
@@ -75,5 +75,10 @@ export default {
       object-position: center;
     }
   }
+}
+.btn {
+  border: 0.1em rgba(255, 255, 255, 0.282) groove;
+  width: 10%;
+  font-family: "Lexend Deca", sans-serif;
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <div class="col-4 bg-light rounded">
-    <h2 class="btn" @click="goToProject">
+  <div class="col-4 bg-info rounded m-3">
+    <h1 class="btn bg-dark text-light text-bold fs-5" @click="goToProject">
       {{ project.name }}
-    </h2>
-    <p>
+    </h1>
+    <p class="fs-6">
       {{ project.description }}
     </p>
   </div>
@@ -51,12 +51,14 @@ export default {
 <style lang="scss" scoped>
 .col-4 {
   width: 20%;
-  padding: 1em;
-  margin: 1em;
-  box-shadow: 0.5em 1em #5655555f;
+  box-shadow: 0.5em 1em #31316693;
 }
 
 .btn {
-  background-color: rgb(219, 219, 255);
+  padding: 0.1em;
+  margin: 0;
+  border: 0.1em rgba(255, 255, 255, 0.282) groove;
+  width: 100%;
+  font-family: "Lexend Deca", sans-serif;
 }
 </style>
