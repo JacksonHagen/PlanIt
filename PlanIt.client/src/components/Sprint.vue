@@ -1,16 +1,7 @@
 <template>
-  <div class="col-md-4">
+  <div class="col-md-4 mb-5">
     <div
-      class="
-        row
-        justify-content-between
-        border border-dark
-        rounded
-        sprint-card
-        p-1
-        tiny-margin
-        bg-light
-      "
+      class="row justify-content-between border border-dark rounded sprint-card p-1 tiny-margin bg-light"
     >
       <div class="col-12 bg-dark p-0 d-flex justify-content-between">
         <div class="p-2">

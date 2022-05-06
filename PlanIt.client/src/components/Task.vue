@@ -1,7 +1,6 @@
 <template>
-  <div class="row justify-content-between m-1">
-    <div class="col-1"></div>
-    <div class="col-10">
+  <div class="row justify-content-between m-1 task-body">
+    <div class="col-12">
       <span class="d-flex flex-column">
         <div class="d-flex justify-content-between">
           <span class="d-flex">
@@ -97,7 +96,7 @@ export default {
       editable,
       sprints: computed(() => AppState.activeSprints),
       toggleCollapse(id) {
-        Collapse.getOrCreateInstance(document.getElementById(id)).toggle()
+        Collapse.getOrCreateInstance(document.getElementById(id)).toggle();
       },
 
       async moveTask() {
@@ -139,5 +138,9 @@ export default {
 <style lang="scss" scoped>
 .bg-aqua {
   background-color: rgba(210, 255, 254, 0.691);
+}
+.task-body {
+  border: 0.1em rgba(0, 0, 0, 0.305) solid;
+  box-shadow: 0.2em 0.3em 0.2em rgba(0, 0, 0, 0.46);
 }
 </style>

@@ -6,7 +6,7 @@
     tabindex="-1"
     aria-labelledby="offcanvasScrollingLabel"
   >
-    <div class="offcanvas-header">
+    <div class="offcanvas-header bg-info">
       <h2 class="" id="offcanvasScrollingLabel">Projects</h2>
       <hr />
       <button
@@ -16,21 +16,18 @@
         aria-label="Close"
       ></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body bg-dark text-light">
       <slot name="body"></slot>
     </div>
   </div>
 </template>
 
-
 <script>
 export default {
   setup() {
-    return {}
-  }
-}
+    return {};
+  },
+};
 </script>
 
-
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -57,4 +57,8 @@ button {
 .banner {
   width: 16em;
 }
+.navbar {
+  padding: 0;
+  margin: 0;
+}
 </style>

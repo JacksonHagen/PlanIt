@@ -1,14 +1,17 @@
 <template>
-  <div class="row">
-    <div class="col-12 d-flex justify-content-between bg-light p-2">
+  <div class="row note-body mx-2">
+    <div class="col-12 d-flex justify-content-between bg-light p-1">
       <span class="d-flex">
         <img
           class="profile-pic rounded-pill"
           :src="note.creator.picture"
           alt=""
         />
-        <p class="ms-3 mt-2">{{ note.creator.name }}</p>
+        <b class="ms-3 mt-2">{{ note.creator.name }}:</b>
       </span>
+      <div class="bg-white p-2 m-1 rounded note-text">
+        {{ note.body }}
+      </div>
       <i
         v-if="note.creatorId == account.id"
         class="mdi mdi-close mdi-24px pointer"
@@ -17,11 +20,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
-      <div class="bg-white p-2 rounded">
-        {{ note.body }}
-      </div>
-    </div>
+    <div class="col-12"></div>
   </div>
 
   <br />
@@ -66,5 +65,12 @@ export default {
 }
 .mdi-close {
   right: 0;
+}
+.note-body {
+  border: 0.1em rgba(0, 0, 0, 0.305) solid;
+  box-shadow: 0.2em 0.3em 0.2em rgba(0, 0, 0, 0.46);
+}
+.note-text {
+  width: 100%;
 }
 </style>
