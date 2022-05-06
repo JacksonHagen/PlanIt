@@ -1,20 +1,17 @@
 <template>
-  <div class="row justify-content-between m-1">
-    <div class="col-10">
-      <h2 class="btn" @click="goToProject">
-        {{ project.name }}
-      </h2>
-      <p>
-        {{ project.description }}
-      </p>
-    </div>
-    
+  <div class="col-4 bg-light rounded">
+    <h2 class="btn" @click="goToProject">
+      {{ project.name }}
+    </h2>
+    <p>
+      {{ project.description }}
+    </p>
   </div>
   <br />
 </template>
 
 <script>
-import { computed } from '@vue/reactivity';
+import { computed } from "@vue/reactivity";
 import { useRouter } from "vue-router";
 import { AppState } from "../AppState.js";
 import { Project } from "../Models/Project.js";
@@ -51,4 +48,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.col-4 {
+  width: 20%;
+  padding: 1em;
+  margin: 1em;
+  box-shadow: 0.5em 1em #5655555f;
+}
+
+.btn {
+  background-color: rgb(219, 219, 255);
+}
+</style>

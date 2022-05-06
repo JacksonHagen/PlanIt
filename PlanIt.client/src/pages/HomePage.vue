@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid card">
+  <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="">
@@ -11,7 +11,7 @@
             Create Project
           </button>
         </div>
-        <div v-if="projects" class="">
+        <div v-if="projects" class="row d-flex">
           <Project v-for="p in projects" :key="p.id" :project="p" />
         </div>
       </div>
@@ -28,34 +28,34 @@
 </template>
 
 <script>
-import { computed } from '@vue/reactivity'
-import { AppState } from '../AppState.js'
-import { onMounted } from '@vue/runtime-core'
-import Pop from '../utils/Pop.js'
-import { projectsService } from '../services/ProjectsService.js'
-import { Modal } from 'bootstrap'
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
+import { onMounted } from "@vue/runtime-core";
+import Pop from "../utils/Pop.js";
+import { projectsService } from "../services/ProjectsService.js";
+import { Modal } from "bootstrap";
 export default {
-  name: 'Home',
+  name: "Home",
   setup() {
     onMounted(async () => {
       try {
-        await projectsService.getAllProjects()
-      }
-      catch (error) {
+        await projectsService.getAllProjects();
+      } catch (error) {
         console.error("[error prefix]", error.message);
         Pop.toast(error.message, "error");
       }
-    })
+    });
     return {
       projects: computed(() => AppState.projects),
       openModal() {
-        document.getElementById('projectForm').reset()
-        Modal.getOrCreateInstance(document.getElementById('createProjectModal')).toggle()
-      }
-    }
-  }
-}
-
+        document.getElementById("projectForm").reset();
+        Modal.getOrCreateInstance(
+          document.getElementById("createProjectModal")
+        ).toggle();
+      },
+    };
+  },
+};
 </script>
 
 <style scoped lang="scss">
