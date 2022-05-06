@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-transparent">
+  <nav class="navbar navbar-expand-lg bg-transparent align-items-space-between">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <img class="logo" src="../assets/img/ppNewLogo.png" />
     </router-link>

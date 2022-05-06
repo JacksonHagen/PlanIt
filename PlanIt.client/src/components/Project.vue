@@ -1,5 +1,5 @@
 <template>
-  <div class="col-4 bg-info rounded m-3">
+  <div class="col-4 bg-info m-3">
     <h1 class="btn bg-dark text-light text-bold fs-5" @click="goToProject">
       {{ project.name }}
     </h1>
@@ -51,7 +51,7 @@ export default {
 <style lang="scss" scoped>
 .col-4 {
   width: 20%;
-  box-shadow: 0.5em 1em #31316693;
+  box-shadow: 0.4em 0.4em #31316693;
 }
 
 .btn {
