@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-between m-1 task-body">
+  <div class="row justify-content-between m-1 task-body bg-info">
     <div class="col-12">
       <span class="d-flex flex-column">
         <div class="d-flex justify-content-between">
@@ -17,13 +17,14 @@
             <h3 class="ms-2">{{ task.name }}</h3>
           </span>
           <h6 class="mt-2 me-4">Weight: {{ task.weight }}</h6>
-        </div>
-        <div class=""></div>
-        <div v-if="account.id === task.creatorId">
-          <div class="btn" @click="toggleCollapse('t-' + task.id)">
-            <i class="mdi mdi-chevron-down mdi-24px"></i>
+          <div v-if="account.id === task.creatorId">
+            <div class="btn" @click="toggleCollapse('t-' + task.id)">
+              <i class="mdi mdi-chevron-down mdi-24px text-light"></i>
+            </div>
           </div>
         </div>
+        <div class=""></div>
+
         <div class="col-12">
           <div class="collapse" :id="'t-' + task.id">
             <div class="bg-aqua rounded p-3 elevation-2">

@@ -22,7 +22,7 @@
         <h1 class="mb-5">{{ activeProject.name }}</h1>
         <div class="" v-if="account.id === activeProject.creatorId">
           <i
-            class="mdi mdi-close mdi-36px lighten-10 pointer"
+            class="mdi mdi-trash-can mdi-36px lighten-10 pointer"
             @click="removeProject"
           ></i>
         </div>

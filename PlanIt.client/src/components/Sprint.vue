@@ -1,27 +1,26 @@
 <template>
   <div class="col-md-4 mb-5">
     <div
-      class="row justify-content-between border border-dark rounded sprint-card p-1 tiny-margin bg-light"
+      class="row justify-content-between rounded sprint-card p-1 tiny-margin"
     >
-      <div class="col-12 bg-dark p-0 d-flex justify-content-between">
+      <div class="col-12 bg-dark p-0 d-flex justify-content-between sticky-top">
         <div class="p-2">
           <h3>
             {{ sprint.name }}
           </h3>
           <h5 v-if="taskWeight > 0">Total Weight of tasks: {{ taskWeight }}</h5>
         </div>
+        <div v-if="account.id === sprint.creatorId" class="m-1 mt-5">
+          <button @click="openModal()" class="btn btn-success btn-sm">
+            Add Task
+          </button>
+        </div>
         <div class="bg-dark" v-if="account.id === sprint.creatorId">
           <i
-            class="mdi mdi-close mdi-36px text-secondary lighten-10 pointer"
+            class="mdi mdi-trash-can mdi-24px text-secondary lighten-10 pointer"
             @click="removeSprint()"
           ></i>
         </div>
-      </div>
-
-      <div v-if="account.id === sprint.creatorId" class="my-3">
-        <button @click="openModal()" class="btn btn-success">
-          Create Task
-        </button>
       </div>
 
       <div v-for="t in tasks" :key="t.id">
@@ -90,7 +89,7 @@ export default {
 
 <style lang="scss" scoped>
 .sprint-card {
-  max-height: 60vh;
+  max-height: 52vh;
   overflow-y: auto;
 }
 .tiny-margin {
